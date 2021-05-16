@@ -5,7 +5,7 @@ from collections import namedtuple
 import numpy as np
 
 pygame.init()
-font = pygame.font.Font('arial.ttf', 25)
+font = pygame.font.Font('arial.ttf', 15)
 #font = pygame.font.SysFont('arial', 25)
 
 class Direction(Enum):
@@ -23,16 +23,20 @@ BLUE1 = (0, 0, 255)
 BLUE2 = (0, 100, 255)
 BLACK = (0,0,0)
 
-BLOCK_SIZE = 20
+BLOCK_SIZE = 5
 SPEED = 40
 
 class SnakeGameAI:
 
-    def __init__(self, w=640, h=480):
+    def __init__(self, w=180, h=120):
         self.w = w
         self.h = h
         # init display
         self.display = pygame.display.set_mode((self.w, self.h))
+        
+        # Self added No.1
+        array3D = pygame.surfarray.array3d(self.display)
+        
         pygame.display.set_caption('Snake')
         self.clock = pygame.time.Clock()
         self.reset()
@@ -90,6 +94,7 @@ class SnakeGameAI:
             self.snake.pop()
         
         # 5. update ui and clock
+        array3D = self._update_ui()  # Self Added No.2
         self._update_ui()
         self.clock.tick(SPEED)
         # 6. return game over and score
@@ -114,13 +119,22 @@ class SnakeGameAI:
 
         for pt in self.snake:
             pygame.draw.rect(self.display, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
-            pygame.draw.rect(self.display, BLUE2, pygame.Rect(pt.x+4, pt.y+4, 12, 12))
+            pygame.draw.rect(self.display, BLUE2, pygame.Rect(pt.x+1, pt.y+1, 
+                                                              BLOCK_SIZE - 2,
+                                                              BLOCK_SIZE - 2))
 
         pygame.draw.rect(self.display, RED, pygame.Rect(self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))
 
         text = font.render("Score: " + str(self.score), True, WHITE)
+        
+        
+        # Self.added No.3
+        array3D = pygame.surfarray.array3d(self.display)
         self.display.blit(text, [0, 0])
         pygame.display.flip()
+        
+        
+        return array3D
 
 
     def _move(self, action):
