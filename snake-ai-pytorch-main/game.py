@@ -35,7 +35,7 @@ class SnakeGameAI:
         self.display = pygame.display.set_mode((self.w, self.h))
         
         # Self added No.1
-        array3D = pygame.surfarray.array3d(self.display)
+        #array3D = pygame.surfarray.array3d(self.display)
         
         pygame.display.set_caption('Snake')
         self.clock = pygame.time.Clock()
@@ -95,10 +95,10 @@ class SnakeGameAI:
         
         # 5. update ui and clock
         array3D = self._update_ui()  # Self Added No.2
-        self._update_ui()
+        #self._update_ui()
         self.clock.tick(SPEED)
         # 6. return game over and score
-        return reward, game_over, self.score
+        return reward, game_over, self.score, array3D
 
 
     def is_collision(self, pt=None):
