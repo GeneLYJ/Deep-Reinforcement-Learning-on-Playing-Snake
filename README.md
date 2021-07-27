@@ -25,37 +25,9 @@ categories with 11 states in total:
 
 
 **B. Model**
-The following Deep Q-Network (DQN) adopted:
-The network receives states and return output
-three values - forward, left or right (3 actions).
-The last layer uses Softmax function.
-The snake game environment is initialised with
-epsilon-greedy, 𝜀 = 1 with exploration and
-exploitation.
-For episode = [1 , M],
-For i = [0 , T],
-1. Obtain current state (observation space), si
-2. Take an action, ai if random generated < 𝜀.
-Otherwise, select
-ai=maxa Q (si , ai) (1)
-3. Execute ai, to the environment and move to
-next frame. Obtain next state, si+1.
-4. Store transition (si, r, si+1, ai) into the Replay
-Buffer, D.
-5. If game over, from D, sample random a
-minibatch of j transitions. Otherwise, sample
-a random transition.
-6. Q-value (action) is updated with Bellman’s
-equation. Target,
-yj = Qnew,j = rj + 𝛾 max􀭟􀱟􀰶􀰭,􀱠Q( si+1,j , ai+1,j ) (2)
-if it is not the last transition. Otherwise,
-Qnew,j = rj. (3)
-7. Compute the loss with Mean Square Error
-(MSE). Σ (y􀭨 − 𝑄􀭨(𝑠􀭧, a􀭧 􀭨 ))􀬶
-􀬴 (4)
-8. Perform backpropagation gradient descent
-step on the loss in Step 7 to update the
-weights.
+
+![image](https://user-images.githubusercontent.com/68850993/127125253-abefbfa8-5922-4c03-848e-82f5012c36ed.png)
+
 In Step 5, Experience Replay from D would help
 to smooth out learning distribution and avoid
 divergence in the parameters. If the game is not
